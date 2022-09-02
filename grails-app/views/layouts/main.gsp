@@ -36,7 +36,7 @@
        <select required name="type"  class="form-control">
               <option value="s">By Name</option>
               <option value="i">By Id</option>
-              <option value="l">Letter</option>
+              <option value="f">Letter</option>
             </select>
 
 

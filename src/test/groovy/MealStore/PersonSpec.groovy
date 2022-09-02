@@ -1,9 +1,9 @@
-package newstore
+package MealStore
 
-import grails.testing.services.ServiceUnitTest
+import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class SearchServiceSpec extends Specification implements ServiceUnitTest<SearchService>{
+class PersonSpec extends Specification implements DomainUnitTest<Person> {
 
     def setup() {
     }

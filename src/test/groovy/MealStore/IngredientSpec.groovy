@@ -1,9 +1,9 @@
-package meal1
+package MealStore
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class MeasureSpec extends Specification implements DomainUnitTest<Measure> {
+class IngredientSpec extends Specification implements DomainUnitTest<Ingredient> {
 
     def setup() {
     }

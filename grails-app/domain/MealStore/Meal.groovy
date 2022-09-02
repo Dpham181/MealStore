@@ -1,4 +1,4 @@
-package meal1
+package MealStore
 
 class Meal {
     String meal_Id;
@@ -8,12 +8,10 @@ class Meal {
     String area;
     String instructions;
     String tags;
-    List  ingredients;
-    List  measures;
     String image;
     String creative;
     Date dateModified;
-    static HasMany = [ingredients:Ingredient,measures:Measure]
+    static hasMany  = [ingredients:Ingredient, measures:Measure]
 
     static constraints = {
          meal_Id();
@@ -23,8 +21,6 @@ class Meal {
          area();
          instructions();
          tags();
-          ingredients();
-          measures();
          image();
          creative();
          dateModified();

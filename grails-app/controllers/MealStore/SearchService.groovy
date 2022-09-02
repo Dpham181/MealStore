@@ -1,15 +1,12 @@
-package newstore
+package MealStore
 
-import com.fasterxml.jackson.databind.ObjectMapper
+
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.uri.UriBuilder
 import io.micronaut.http.client.HttpClient
-import meal1.Ingredient
-import meal1.Meal
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
-import org.json.*;
 
 class SearchService {
      String UrlBase ="https://www.themealdb.com/" ;
@@ -22,23 +19,31 @@ class SearchService {
          this.search_term = search_term;
     };
 
-   Meal serviceMethod(){
-        Meal meal= new Meal();
-        meal.ingredients = new ArrayList();
-
+   List<Meal> serviceMethod(){
+      
+       List<Meal> Temp_list = new ArrayList<>();
        HttpClient client = HttpClient.create(this.UrlBase.toURL())
          HttpRequest request = HttpRequest.GET(UriBuilder.of('/api/json/v1/1/search.php')
                  .queryParam(this.term, this.search_term)
                  .build())
 
         HttpResponse<String> resp = client.toBlocking().exchange(request,String)
-        String json = resp.body()
-        JSONObject obj = new JSONObject(json);
-        JSONArray arr = obj.getJSONArray("meals");
 
+
+       try {
+           String json = resp.body()
+
+           JSONObject obj = new JSONObject(json);
+
+
+           JSONArray arr = obj.optJSONArray("meals");
+       }catch(NullPointerException e){
+           return Temp_list
+       }
         for (int i = 0; i < arr.length(); i++)
         {
 
+            def meal = new Meal();
 
             meal.meal_Id = arr.getJSONObject(i).optString("idMeal","None").toInteger();
             meal.name =  arr.getJSONObject(i).optString("strMeal","None");
@@ -58,14 +63,16 @@ class SearchService {
 
                     Ingredient ingredient = new Ingredient();
                     ingredient.name = arr.getJSONObject(i).optString(key,"None");
-                    meal.ingredients.add(ingredient);
+                    meal.addToIngredients(ingredient);
 
 
                 }
             }
 
-
+            Temp_list.add(meal);
         }
-        return meal
+
+
+        return Temp_list
      }
 }

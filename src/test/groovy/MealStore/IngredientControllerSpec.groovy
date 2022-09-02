@@ -1,4 +1,4 @@
-package meal1
+package MealStore
 
 import grails.testing.gorm.DomainUnitTest
 import grails.testing.web.controllers.ControllerUnitTest

@@ -1,14 +1,12 @@
-package meal1
+package MealStore
 
 import grails.validation.ValidationException
-import newstore.SearchService
 
 import static org.springframework.http.HttpStatus.*
 
 class MealController {
 
     MealService mealService
-    IngredientService IngredientService
 
     SearchService s
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -17,10 +15,10 @@ class MealController {
     def search (){
         String type = params.type;
         String term = params.term ;
-        s = new SearchService(type,term )
-        Meal meal = s.serviceMethod()
+        s = new SearchService(type,term );
+        def  meals = s.serviceMethod();
 
-        render(view: "search", model: [Meal: meal, Ingredients:meal.ingredients])
+        render(view: "search", model: [Meals: meals])
 
     }
 
@@ -34,6 +32,8 @@ class MealController {
     }
 
     def create() {
+
+
         respond new Meal(params)
     }
 
@@ -44,6 +44,7 @@ class MealController {
         }
 
         try {
+
             mealService.save(meal)
         } catch (ValidationException e) {
             respond meal.errors, view:'create'

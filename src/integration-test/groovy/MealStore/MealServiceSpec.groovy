@@ -1,4 +1,4 @@
-package meal1
+package MealStore
 
 import grails.testing.mixin.integration.Integration
 import grails.gorm.transactions.Rollback
@@ -7,37 +7,37 @@ import org.hibernate.SessionFactory
 
 @Integration
 @Rollback
-class MeasureServiceSpec extends Specification {
+class MealServiceSpec extends Specification {
 
-    MeasureService measureService
+    MealService mealService
     SessionFactory sessionFactory
 
     private Long setupData() {
         // TODO: Populate valid domain instances and return a valid ID
-        //new Measure(...).save(flush: true, failOnError: true)
-        //new Measure(...).save(flush: true, failOnError: true)
-        //Measure measure = new Measure(...).save(flush: true, failOnError: true)
-        //new Measure(...).save(flush: true, failOnError: true)
-        //new Measure(...).save(flush: true, failOnError: true)
+        //new Meal(...).save(flush: true, failOnError: true)
+        //new Meal(...).save(flush: true, failOnError: true)
+        //Meal meal = new Meal(...).save(flush: true, failOnError: true)
+        //new Meal(...).save(flush: true, failOnError: true)
+        //new Meal(...).save(flush: true, failOnError: true)
         assert false, "TODO: Provide a setupData() implementation for this generated test suite"
-        //measure.id
+        //meal.id
     }
 
     void "test get"() {
         setupData()
 
         expect:
-        measureService.get(1) != null
+        mealService.get(1) != null
     }
 
     void "test list"() {
         setupData()
 
         when:
-        List<Measure> measureList = measureService.list(max: 2, offset: 2)
+        List<Meal> mealList = mealService.list(max: 2, offset: 2)
 
         then:
-        measureList.size() == 2
+        mealList.size() == 2
         assert false, "TODO: Verify the correct instances are returned"
     }
 
@@ -45,30 +45,30 @@ class MeasureServiceSpec extends Specification {
         setupData()
 
         expect:
-        measureService.count() == 5
+        mealService.count() == 5
     }
 
     void "test delete"() {
-        Long measureId = setupData()
+        Long mealId = setupData()
 
         expect:
-        measureService.count() == 5
+        mealService.count() == 5
 
         when:
-        measureService.delete(measureId)
+        mealService.delete(mealId)
         sessionFactory.currentSession.flush()
 
         then:
-        measureService.count() == 4
+        mealService.count() == 4
     }
 
     void "test save"() {
         when:
         assert false, "TODO: Provide a valid instance to save"
-        Measure measure = new Measure()
-        measureService.save(measure)
+        Meal meal = new Meal()
+        mealService.save(meal)
 
         then:
-        measure.id != null
+        meal.id != null
     }
 }

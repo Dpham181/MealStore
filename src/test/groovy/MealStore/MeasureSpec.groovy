@@ -1,9 +1,9 @@
-package newstore
+package MealStore
 
-import grails.testing.services.ServiceUnitTest
+import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class SearchByidServiceSpec extends Specification implements ServiceUnitTest<id>{
+class MeasureSpec extends Specification implements DomainUnitTest<Measure> {
 
     def setup() {
     }
