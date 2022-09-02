@@ -1,11 +1,11 @@
-package meal1
+package MealStore
 
 import grails.testing.gorm.DomainUnitTest
 import grails.testing.web.controllers.ControllerUnitTest
 import grails.validation.ValidationException
 import spock.lang.*
 
-class MealControllerSpec extends Specification implements ControllerUnitTest<MealController>, DomainUnitTest<Meal> {
+class MeasureControllerSpec extends Specification implements ControllerUnitTest<MeasureController>, DomainUnitTest<Measure> {
 
     def populateValidParams(params) {
         assert params != null
@@ -17,7 +17,7 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
 
     void "Test the index action returns the correct model"() {
         given:
-        controller.mealService = Mock(MealService) {
+        controller.measureService = Mock(MeasureService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -26,8 +26,8 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
         controller.index()
 
         then:"The model is correct"
-        !model.mealList
-        model.mealCount == 0
+        !model.measureList
+        model.measureCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -35,7 +35,7 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
         controller.create()
 
         then:"The model is correctly created"
-        model.meal!= null
+        model.measure!= null
     }
 
     void "Test the save action with a null instance"() {
@@ -45,14 +45,14 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
         controller.save(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/meal/index'
+        response.redirectedUrl == '/measure/index'
         flash.message != null
     }
 
     void "Test the save action correctly persists"() {
         given:
-        controller.mealService = Mock(MealService) {
-            1 * save(_ as Meal)
+        controller.measureService = Mock(MeasureService) {
+            1 * save(_ as Measure)
         }
 
         when:"The save action is executed with a valid instance"
@@ -60,38 +60,38 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        def meal = new Meal(params)
-        meal.id = 1
+        def measure = new Measure(params)
+        measure.id = 1
 
-        controller.save(meal)
+        controller.save(measure)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/meal/show/1'
+        response.redirectedUrl == '/measure/show/1'
         controller.flash.message != null
     }
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.mealService = Mock(MealService) {
-            1 * save(_ as Meal) >> { Meal meal ->
-                throw new ValidationException("Invalid instance", meal.errors)
+        controller.measureService = Mock(MeasureService) {
+            1 * save(_ as Measure) >> { Measure measure ->
+                throw new ValidationException("Invalid instance", measure.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
-        def meal = new Meal()
-        controller.save(meal)
+        def measure = new Measure()
+        controller.save(measure)
 
         then:"The create view is rendered again with the correct model"
-        model.meal != null
+        model.measure != null
         view == 'create'
     }
 
     void "Test the show action with a null id"() {
         given:
-        controller.mealService = Mock(MealService) {
+        controller.measureService = Mock(MeasureService) {
             1 * get(null) >> null
         }
 
@@ -104,20 +104,20 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
 
     void "Test the show action with a valid id"() {
         given:
-        controller.mealService = Mock(MealService) {
-            1 * get(2) >> new Meal()
+        controller.measureService = Mock(MeasureService) {
+            1 * get(2) >> new Measure()
         }
 
         when:"A domain instance is passed to the show action"
         controller.show(2)
 
         then:"A model is populated containing the domain instance"
-        model.meal instanceof Meal
+        model.measure instanceof Measure
     }
 
     void "Test the edit action with a null id"() {
         given:
-        controller.mealService = Mock(MealService) {
+        controller.measureService = Mock(MeasureService) {
             1 * get(null) >> null
         }
 
@@ -130,15 +130,15 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
 
     void "Test the edit action with a valid id"() {
         given:
-        controller.mealService = Mock(MealService) {
-            1 * get(2) >> new Meal()
+        controller.measureService = Mock(MeasureService) {
+            1 * get(2) >> new Measure()
         }
 
         when:"A domain instance is passed to the show action"
         controller.edit(2)
 
         then:"A model is populated containing the domain instance"
-        model.meal instanceof Meal
+        model.measure instanceof Measure
     }
 
 
@@ -149,14 +149,14 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
         controller.update(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/meal/index'
+        response.redirectedUrl == '/measure/index'
         flash.message != null
     }
 
     void "Test the update action correctly persists"() {
         given:
-        controller.mealService = Mock(MealService) {
-            1 * save(_ as Meal)
+        controller.measureService = Mock(MeasureService) {
+            1 * save(_ as Measure)
         }
 
         when:"The save action is executed with a valid instance"
@@ -164,31 +164,31 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def meal = new Meal(params)
-        meal.id = 1
+        def measure = new Measure(params)
+        measure.id = 1
 
-        controller.update(meal)
+        controller.update(measure)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/meal/show/1'
+        response.redirectedUrl == '/measure/show/1'
         controller.flash.message != null
     }
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.mealService = Mock(MealService) {
-            1 * save(_ as Meal) >> { Meal meal ->
-                throw new ValidationException("Invalid instance", meal.errors)
+        controller.measureService = Mock(MeasureService) {
+            1 * save(_ as Measure) >> { Measure measure ->
+                throw new ValidationException("Invalid instance", measure.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
-        controller.update(new Meal())
+        controller.update(new Measure())
 
         then:"The edit view is rendered again with the correct model"
-        model.meal != null
+        model.measure != null
         view == 'edit'
     }
 
@@ -199,13 +199,13 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
         controller.delete(null)
 
         then:"A 404 is returned"
-        response.redirectedUrl == '/meal/index'
+        response.redirectedUrl == '/measure/index'
         flash.message != null
     }
 
     void "Test the delete action with an instance"() {
         given:
-        controller.mealService = Mock(MealService) {
+        controller.measureService = Mock(MeasureService) {
             1 * delete(2)
         }
 
@@ -215,7 +215,7 @@ class MealControllerSpec extends Specification implements ControllerUnitTest<Mea
         controller.delete(2)
 
         then:"The user is redirected to index"
-        response.redirectedUrl == '/meal/index'
+        response.redirectedUrl == '/measure/index'
         flash.message != null
     }
 }

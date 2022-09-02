@@ -1,4 +1,4 @@
-package meal1
+package MealStore
 
 import grails.testing.mixin.integration.Integration
 import grails.gorm.transactions.Rollback

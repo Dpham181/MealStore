@@ -1,4 +1,4 @@
-package meal1
+package MealStore
 
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*

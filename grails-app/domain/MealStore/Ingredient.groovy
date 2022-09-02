@@ -1,8 +1,8 @@
-package meal1
+package MealStore
 
 class Ingredient {
     String name;
-    static belongsTo = [meal: Meal]
+    static belongsTo = Meal
 
     static constraints = {
     }

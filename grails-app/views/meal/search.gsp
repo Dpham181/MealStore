@@ -7,19 +7,21 @@
     </head>
     <body>
     <div id="content" role="main">
-       <div class="jumbotron">
-
-          <g:form resource="${this.Meal}" method="POST">
-                               <fieldset class="form">
-                                   <f:all bean="Meal"/>
-                               </fieldset>
-                               <fieldset class="buttons">
-                                   <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                               </fieldset>
-          </g:form>
 
 
-        </div>
+        <g:each var="meal" in="${Meals}">
+               <div class="card" style="width: 18rem;">
+                 <img class="card-img-top" src="${meal.image}" alt="Card image cap">
+                 <div class="card-body">
+                   <h5 class="card-title">${meal.name}</h5>
+                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                   <a href="#" class="btn btn-primary">Go somewhere</a>
+                 </div>
+               </div>
+
+          </g:each>
+
+
     </div>
     </body>
 </html>

@@ -1,4 +1,4 @@
-package meal1
+package MealStore
 
 import grails.gorm.services.Service
 

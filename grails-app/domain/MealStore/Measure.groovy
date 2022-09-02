@@ -1,4 +1,4 @@
-package meal1
+package MealStore
 
 class Measure {
     String strMeasure;

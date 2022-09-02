@@ -1,4 +1,4 @@
-package meal1
+package MealStore
 
 import grails.gorm.services.Service
 
@@ -12,6 +12,7 @@ interface MealService {
     Long count()
 
     void delete(Serializable id)
+
 
     Meal save(Meal meal)
 
