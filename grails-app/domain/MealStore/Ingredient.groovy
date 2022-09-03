@@ -2,7 +2,7 @@ package MealStore
 
 class Ingredient {
     String name;
-    static belongsTo = Meal
+    static belongsTo = [meal: Meal]
 
     static constraints = {
     }

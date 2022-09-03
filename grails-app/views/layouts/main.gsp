@@ -31,7 +31,7 @@
               <a class="nav-link" href="https://grails-profiles.github.io/web/latest/guide/index.html">Grails Doc</a>
             </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" action="meal/search" method="POST">
+    <form class="form-inline my-2 my-lg-0" action="/search" method="POST" onClick="this.form.reset()">
       <input class="form-control mr-sm-2" name="term" type="search" placeholder="Search" aria-label="Search" required>
        <select required name="type"  class="form-control">
               <option value="s">By Name</option>

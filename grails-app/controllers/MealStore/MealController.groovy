@@ -8,21 +8,13 @@ class MealController {
 
     MealService mealService
 
-    SearchService s
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     // search functions
 
-    def search (){
-        String type = params.type;
-        String term = params.term ;
-        s = new SearchService(type,term );
-        def  meals = s.serviceMethod();
 
-        render(view: "search", model: [Meals: meals])
-
-    }
 
     def index(Integer max) {
+
         params.max = Math.min(max ?: 10, 100)
         respond mealService.list(params), model:[mealCount: mealService.count()]
     }
