@@ -7,6 +7,7 @@ import static org.springframework.http.HttpStatus.*
 class MealController {
 
     MealService mealService
+    IngredientService ingredientService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     // search functions
@@ -30,6 +31,7 @@ class MealController {
     }
 
     def save(Meal meal) {
+        println("est" + meal.ingredients)
         if (meal == null) {
             notFound()
             return

@@ -47,8 +47,9 @@ class SearchService {
                meal.category = arr.getJSONObject(i).optString("strCategory","None");
                meal.tags = arr.getJSONObject(i).optString("strTags","None");
                meal.creative = arr.getJSONObject(i).optString("strCreativeCommonsConfirmed","None");
-               meal.image = arr.getJSONObject(i).optString("strImageSource","None");
+               meal.image = arr.getJSONObject(i).optString("strMealThumb","None");
                meal.instructions = arr.getJSONObject(i).optString("strInstructions","None");
+
                for ( int j = 0 ; j < arr.getJSONObject(i).keySet().size() ; j++) {
 
                    if(arr.getJSONObject(i).keySet()[j].toString().contains("Ingredient")){
@@ -59,7 +60,6 @@ class SearchService {
                        Ingredient ingredient = new Ingredient();
                        ingredient.name = arr.getJSONObject(i).optString(key,"None");
                        meal.addToIngredients(ingredient);
-
 
                    }
                }

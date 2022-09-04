@@ -7,10 +7,10 @@ class Meal {
     String category;
     String area;
     String instructions;
+    List ingredients;
     String tags;
     String image;
     String creative;
-    Date dateModified;
     static hasMany  = [ingredients:Ingredient, measures:Measure]
 
     static constraints = {
@@ -23,7 +23,6 @@ class Meal {
          tags();
          image();
          creative();
-         dateModified();
         instructions maxSize:5000
     }
 
