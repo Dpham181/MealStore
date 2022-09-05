@@ -2,6 +2,8 @@ package MealStore
 
 import grails.validation.ValidationException
 
+import java.sql.Array
+
 import static org.springframework.http.HttpStatus.*
 
 class MealController {
@@ -31,14 +33,21 @@ class MealController {
     }
 
     def save(Meal meal) {
-        println("est" + meal.ingredients)
         if (meal == null) {
             notFound()
             return
         }
 
         try {
+            def ingredients = params.ingredientss;
 
+            for ( int i = 0 ; i < 20 ; i ++){
+                Ingredient NEW = new Ingredient(name:ingredients[i])
+                if(NEW.name === null){
+                    NEW.name = " "
+                }
+                meal.addToIngredients(NEW);
+            }
             mealService.save(meal)
         } catch (ValidationException e) {
             respond meal.errors, view:'create'

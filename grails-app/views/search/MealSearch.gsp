@@ -9,10 +9,10 @@
     <div id="content" role="main">
     <div class="d-flex flex-wrap flex-row justify-content-around">
 
+
+    <g:each var="meal" in="${Meals}">
+
    <form  action="/meal/save" method="POST" onClick="this.form.reset()">
-
-        <g:each var="meal" in="${Meals}">
-
 
           <div class="p-2">
                <div class="card" style="width: 18rem;">
@@ -25,6 +25,7 @@
                      <input type="hidden" name="category" value="${meal.category}">
                      <input type="hidden" name="area" value="${meal.area}">
                      <input type="hidden" name="tags" value="${meal.tags}">
+
                      <input type="hidden" name="image" value="${meal.image}">
                      <input type="hidden" name="creative" value="${meal.creative}">
                      <input type="hidden" name="instructions" value="${meal.instructions}">
@@ -66,16 +67,11 @@
                           <div class="col-sm-9">
                              Tags: ${meal.tags}
                             <div class="row">
-                                                         <g:each var="ingredient" in="${meal.ingredients}">
-
-                              <div class="col-8 col-sm-6">
-
-                              ${ingredient.name}
-
-
-
-                              </div>
-                                                           </g:each>
+                        <g:select type="hidden" name="ingredientss"
+                                                    from="${meal.ingredients}"
+                                                    value="${meal.ingredients*.name}"
+                                                    optionKey="name"
+                                                    multiple="true" />
 
                               <div class="col-4 col-sm-6">
                                 Drink: ${meal.drink}
@@ -96,8 +92,10 @@
                 </div>
               </div>
             </div>
-          </g:each>
     </form>
+
+     </g:each>
+
     </div>
     </div>
     </body>

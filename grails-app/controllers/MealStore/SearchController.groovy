@@ -11,19 +11,23 @@ class SearchController {
 
     def search (){
         session["meals"] = null
-        String type = params.type;
         String term = params.term ;
-        s = new SearchService(type,term );
+        s = new SearchService(term );
         def  meals = s.serviceMethod();
-        session["meals"] = meals
-        redirect(action: "MealSearch")
+        if(meals.isEmpty()){
+            redirect(view: "NotFound")
 
+        }else {
+            session["meals"] = meals
+            redirect(action: "MealSearch")
+        }
     }
 
     def MealSearch() {
         def meals =  session["meals"];
-        println(meals)
-       render(view: "MealSearch", model: [Meals: meals])
+        session["meals"] = null
+
+        render(view: "MealSearch", model: [Meals: meals])
 
     }
 

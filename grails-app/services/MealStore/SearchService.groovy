@@ -7,24 +7,36 @@ import io.micronaut.http.uri.UriBuilder
 import io.micronaut.http.client.HttpClient
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
+import org.springframework.http.server.DelegatingServerHttpResponse
 
 class SearchService {
      String UrlBase ="https://www.themealdb.com/" ;
-     String term;
      String search_term;
 
 
-     SearchService(String term, String search_term){
-        this.term = term ;
+     SearchService(String search_term){
          this.search_term = search_term;
     };
 
    List<Meal> serviceMethod(){
-      
+       String term =""
+       try {
+           Integer.parseInt(this.search_term);
+           term = "i"
+
+       } catch (NumberFormatException e) {
+           if (this.search_term.length() > 2){
+               term= "s"
+           } else{
+               term = "f"
+           }
+       }
+
+
        List<Meal> Temp_list = new ArrayList<>();
        HttpClient client = HttpClient.create(this.UrlBase.toURL())
          HttpRequest request = HttpRequest.GET(UriBuilder.of('/api/json/v1/1/search.php')
-                 .queryParam(this.term, this.search_term)
+                 .queryParam(term, this.search_term)
                  .build())
 
         HttpResponse<String> resp = client.toBlocking().exchange(request,String)
@@ -58,12 +70,11 @@ class SearchService {
 
 
                        Ingredient ingredient = new Ingredient();
-                       ingredient.name = arr.getJSONObject(i).optString(key,"None");
+                       ingredient.name = arr.getJSONObject(i).optString(key,"");
                        meal.addToIngredients(ingredient);
 
                    }
                }
-
                Temp_list.add(meal);
            }
 

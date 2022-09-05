@@ -7,7 +7,6 @@ class Meal {
     String category;
     String area;
     String instructions;
-    List ingredients;
     String tags;
     String image;
     String creative;
