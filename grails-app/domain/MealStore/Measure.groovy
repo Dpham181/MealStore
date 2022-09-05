@@ -1,7 +1,10 @@
 package MealStore
 
 class Measure {
-    String strMeasure;
+    String name;
+    String toString() {
+        "${name}"
+    }
     static belongsTo = [meal: Meal]
 
     static constraints = {

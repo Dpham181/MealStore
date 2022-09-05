@@ -2,27 +2,22 @@ package MealStore
 
 import grails.validation.ValidationException
 
+import java.sql.Array
+
 import static org.springframework.http.HttpStatus.*
 
 class MealController {
 
     MealService mealService
+    IngredientService ingredientService
 
-    SearchService s
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     // search functions
 
-    def search (){
-        String type = params.type;
-        String term = params.term ;
-        s = new SearchService(type,term );
-        def  meals = s.serviceMethod();
 
-        render(view: "search", model: [Meals: meals])
-
-    }
 
     def index(Integer max) {
+
         params.max = Math.min(max ?: 10, 100)
         respond mealService.list(params), model:[mealCount: mealService.count()]
     }
@@ -44,7 +39,15 @@ class MealController {
         }
 
         try {
+            def ingredients = params.ingredientss;
 
+            for ( int i = 0 ; i < 20 ; i ++){
+                Ingredient NEW = new Ingredient(name:ingredients[i])
+                if(NEW.name === null){
+                    NEW.name = " "
+                }
+                meal.addToIngredients(NEW);
+            }
             mealService.save(meal)
         } catch (ValidationException e) {
             respond meal.errors, view:'create'

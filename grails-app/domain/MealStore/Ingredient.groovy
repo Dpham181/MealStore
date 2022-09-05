@@ -2,7 +2,10 @@ package MealStore
 
 class Ingredient {
     String name;
-    static belongsTo = Meal
+    String toString() {
+        "${name}"
+    }
+    static belongsTo = [meal: Meal]
 
     static constraints = {
     }
