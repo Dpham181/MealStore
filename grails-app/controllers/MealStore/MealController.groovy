@@ -40,13 +40,20 @@ class MealController {
 
         try {
             def ingredients = params.ingredientss;
-
+            def measures = params.measuress;
+            println(ingredients)
+            println(measures)
             for ( int i = 0 ; i < 20 ; i ++){
-                Ingredient NEW = new Ingredient(name:ingredients[i])
-                if(NEW.name === null){
-                    NEW.name = " "
+                Ingredient  Ingredient= new Ingredient(name:ingredients[i])
+                Measure  Measure = new Measure(name:measures[i] )
+                if(Ingredient.name === null){
+                    Ingredient.name = " "
                 }
-                meal.addToIngredients(NEW);
+                if(Measure.name === null){
+                    Measure.name = " "
+                }
+                meal.addToIngredients(Ingredient);
+                meal.addToMeasures(Measure);
             }
             mealService.save(meal)
         } catch (ValidationException e) {

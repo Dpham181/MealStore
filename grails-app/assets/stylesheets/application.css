@@ -13,3 +13,6 @@
 *= require mobile
 *= require_self
 */
+.se{
+display:none;
+}

@@ -25,6 +25,16 @@
                      <input type="hidden" name="category" value="${meal.category}">
                      <input type="hidden" name="area" value="${meal.area}">
                      <input type="hidden" name="tags" value="${meal.tags}">
+                           <g:select class ="se" name="ingredientss"
+                                                                            from="${meal.ingredients}"
+                                                                            value="${meal.ingredients*.name}"
+                                                                            optionKey="name"
+                                                                            multiple="true" />
+                                                                        <g:select class ="se"  name="measuress"
+                                                                                                          from="${meal.measures}"
+                                                                                                          value="${meal.measures*.name}"
+                                                                                                          optionKey="name"
+                                                                                                          multiple="true" />
 
                      <input type="hidden" name="image" value="${meal.image}">
                      <input type="hidden" name="creative" value="${meal.creative}">
@@ -66,17 +76,51 @@
                         <div class="row">
                           <div class="col-sm-9">
                              Tags: ${meal.tags}
-                            <div class="row">
-                        <g:select type="hidden" name="ingredientss"
-                                                    from="${meal.ingredients}"
-                                                    value="${meal.ingredients*.name}"
-                                                    optionKey="name"
-                                                    multiple="true" />
+                          <div class="row">
 
-                              <div class="col-4 col-sm-6">
-                                Drink: ${meal.drink}
-                              </div>
-                            </div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Ingredients</th>
+
+    </tr>
+  </thead>
+  <tbody>
+   <g:each  var="ingredient" in="${meal.ingredients}">
+
+    <tr>
+
+      <td>${ingredient.name}</td>
+
+    </tr>
+   </g:each>
+
+  </tbody>
+
+</table>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Measures</th>
+
+    </tr>
+  </thead>
+  <tbody>
+   <g:each  var="measure" in="${meal.measures}">
+
+    <tr>
+
+      <td>${measure.name}</td>
+
+    </tr>
+   </g:each>
+
+  </tbody>
+
+</table>
+
+                          </div>
                           </div>
                         </div>
                       </div>

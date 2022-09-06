@@ -44,7 +44,6 @@ class SearchService {
 
        try {
            String json = resp.body()
-
            JSONObject obj = new JSONObject(json);
            JSONArray arr = obj.optJSONArray("meals");
            for (int i = 0; i < arr.length(); i++)
@@ -61,19 +60,28 @@ class SearchService {
                meal.creative = arr.getJSONObject(i).optString("strCreativeCommonsConfirmed","None");
                meal.image = arr.getJSONObject(i).optString("strMealThumb","None");
                meal.instructions = arr.getJSONObject(i).optString("strInstructions","None");
+               println(arr.getJSONObject(i).keys())
 
-               for ( int j = 0 ; j < arr.getJSONObject(i).keySet().size() ; j++) {
+               for ( int j = 1 ; j <= 20 ; j++) {
 
-                   if(arr.getJSONObject(i).keySet()[j].toString().contains("Ingredient")){
-                       String key = arr.getJSONObject(i).keySet()[j];
-
+                       String ingredient_key = "strIngredient" + j
 
 
-                       Ingredient ingredient = new Ingredient();
-                       ingredient.name = arr.getJSONObject(i).optString(key,"");
-                       meal.addToIngredients(ingredient);
 
-                   }
+                           Ingredient ingredient = new Ingredient();
+                           ingredient.name = arr.getJSONObject(i).optString(ingredient_key,"");
+                           meal.addToIngredients(ingredient);
+
+
+                         String measure_key = "strMeasure" + j
+
+
+
+                             Measure measure = new Measure();
+                             measure.name = arr.getJSONObject(i).optString(measure_key,"");
+                             meal.addToMeasures(measure);
+
+
                }
                Temp_list.add(meal);
            }
